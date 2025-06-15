@@ -80,6 +80,15 @@ fun FactScreen(viewModel: FactViewModel) {
                     Button(onClick = { viewModel.loadFact() }) {
                         Text("Получить новый факт")
                     }
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    // Кнопка: добавить в избранное
+                    Button(
+                        onClick = { viewModel.addToFavorites() },
+                        enabled = fact != null // Чтобы не нажать, если факт пустой
+                    ) {
+                        Text("Добавить в избранное")
+                    }
                 }
             }
         }

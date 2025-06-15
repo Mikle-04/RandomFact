@@ -1,10 +1,11 @@
 package com.example.randomfact.data.db.dao
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.randomfact.data.db.model.FactEntity
 import kotlinx.coroutines.flow.Flow
-
+@Dao
 interface FactDao {
 
     // Вставляем новый факт в избранное
