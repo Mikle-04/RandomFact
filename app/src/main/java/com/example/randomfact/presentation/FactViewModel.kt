@@ -3,13 +3,15 @@ package com.example.randomfact.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.randomfact.domain.model.Fact
+import com.example.randomfact.domain.repository.FactRepository
 import com.example.randomfact.domain.usecase.GetRandomFactUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class FactViewModel(
-    private val getRandomFactUseCase: GetRandomFactUseCase
+    private val getRandomFactUseCase: GetRandomFactUseCase,
+    private val repository: FactRepository
 ) : ViewModel() {
     // Текущее состояние факта
     private val _fact = MutableStateFlow<Fact?>(null)

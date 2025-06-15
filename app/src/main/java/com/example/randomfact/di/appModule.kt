@@ -1,5 +1,7 @@
 package com.example.randomfact.di
 
+import androidx.room.Room
+import com.example.randomfact.data.db.FactDatabase
 import com.example.randomfact.data.remote.FactApi
 import com.example.randomfact.data.repository.FactRepositoryImpl
 import com.example.randomfact.domain.repository.FactRepository
@@ -23,12 +25,19 @@ val appModule = module{
             .create(FactApi::class.java)
     }
 
-    // Repository
-    single<FactRepository> { FactRepositoryImpl(get()) }
-
     // UseCase
     single { GetRandomFactUseCase(get()) }
 
+    //Room
+    single{
+        Room.databaseBuilder(get(), FactDatabase:: class.java, "fact_db").build()
+    }
+    // FactDao
+    single { get<FactDatabase>().factDao() }
+
+    // Repository
+    single<FactRepository> { FactRepositoryImpl(get(), get()) }
+
     // ViewModel
-    viewModel{ FactViewModel(get()) }
+    viewModel{ FactViewModel(get(), get()) }
 }
