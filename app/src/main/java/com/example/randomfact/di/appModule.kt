@@ -30,5 +30,5 @@ val appModule = module{
     single { GetRandomFactUseCase(get()) }
 
     // ViewModel
-    viewModel { FactViewModel(get()) }
+    viewModel{ FactViewModel(get()) }
 }
