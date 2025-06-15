@@ -56,7 +56,11 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
+        //retrofit
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
+        //Koin
+    implementation (libs.koin.core)
+    implementation (libs.koin.android)
+    implementation (libs.koin.androidx.viewmodel)
 }
