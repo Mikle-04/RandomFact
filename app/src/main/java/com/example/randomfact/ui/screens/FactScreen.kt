@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,9 +17,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import com.example.randomfact.presentation.FactViewModel
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 
 @Composable
 fun FactScreen(viewModel: FactViewModel) {
@@ -31,6 +35,21 @@ fun FactScreen(viewModel: FactViewModel) {
 
     // Подписываемся на поток ошибок из ViewModel
     val errorMessage by viewModel.errorMessage.collectAsState()
+
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+
+    // Показываем Snackbar, если есть ошибка
+    LaunchedEffect(errorMessage) {
+        errorMessage?.let {
+            scope.launch {
+                snackbarHostState.showSnackbar(
+                    message = it,
+                    actionLabel = "Закрыть"
+                )
+            }
+        }
+    }
 
     // LaunchedEffect(Unit) гарантирует, что при первом рендере экрана вызывается loadFact()
     LaunchedEffect(Unit) {
